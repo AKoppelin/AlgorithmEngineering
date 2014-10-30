@@ -17,7 +17,7 @@ int computeNthFibonacciNumber1(int n) {
 /// This function computes the n-th Fibonacci number in linear time
 /// in n and needs exponential memory.
 int computeNthFibonacciNumber2(int n) {
-	int* arr = new int[n];
+	int* arr = new int[n];	// a dynamic array size can only be initialized this way
 
 	arr[0] = 0;
 	arr[1] = 1;
@@ -34,6 +34,10 @@ int computeNthFibonacciNumber3(int n) {
 
 	arr[0] = 0;
 	arr[1] = 1;
+
+	if (n < 2) {
+		arr[2] = arr[n];
+	}
 	for (int i = 2; i <= n; i++) {
 		arr[2] = arr[1] + arr[0];
 		arr[0] = arr[1];
@@ -46,6 +50,7 @@ int main() {
 	cout << "Die wievielte Fibonacci-Zahl soll berechnet werden?" << endl;
 	int n;
 	cin >> n;
+	cout << endl;
 	cout << computeNthFibonacciNumber1(n) << endl;
 	cout << computeNthFibonacciNumber2(n) << endl;
 	cout << computeNthFibonacciNumber3(n) << endl;
