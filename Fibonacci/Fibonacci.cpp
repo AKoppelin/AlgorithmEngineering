@@ -1,4 +1,5 @@
 #include <iostream>
+#include "gtest/gtest.h"
 using namespace std;
 
 /// This function computes the n-th Fibonacci number recursively.
@@ -15,7 +16,7 @@ int computeNthFibonacciNumber1(int n) {
 }
 
 /// This function computes the n-th Fibonacci number in linear time
-/// in n and needs exponential memory.
+/// in n and needs linear memory.
 int computeNthFibonacciNumber2(int n) {
 	int* arr = new int[n];	// a dynamic array size can only be initialized this way
 
@@ -46,14 +47,11 @@ int computeNthFibonacciNumber3(int n) {
 	return arr[2];
 }
 
-int main() {
-	cout << "Die wievielte Fibonacci-Zahl soll berechnet werden?" << endl;
-	int n;
-	cin >> n;
-	cout << endl;
-	cout << computeNthFibonacciNumber1(n) << endl;
-	cout << computeNthFibonacciNumber2(n) << endl;
-	cout << computeNthFibonacciNumber3(n) << endl;
+int main(int argc, char** argv) {
+	testing::InitGoogleTest(&argc, argv);
+	RUN_ALL_TESTS();
+	cin.get();
+
 	return 0;
 }
 
