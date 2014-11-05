@@ -1,18 +1,17 @@
-EXECUTABLE = prog
-CXX = g++
-CXXFLAGS = -unittest -Wall
-COMPILE.cc = $(CXX) $(CXXFLAGS) -c
-LINK = $(CXX) $(CXXFLAGS) $(LDFLAGS)
-SOURCES = src/*.cpp
-OBJECTS = $(patsubst, %.cpp, %.o, $(SOURCES))
+EXECUTABLE = fibo
+CXX := g++
+CXXFLAGS := -Wall -O3
+LDFLAGS := 
+#LINK := $(CXX) $(CXXFLAGS) $(LDFLAGS)
+SOURCES := src/*.cpp
+#OBJECTS := $(patsubst, %.cpp, %.o, $(SOURCES))
 
 .PHONY: all
-all:
-	build
+all: build
 
 .PHONY: build
 build:
-	$(EXECUTABLE) $(OBJECTS)
+	$(CXX) $(CXXFLAGS) -o $(EXECUTABLE) $(SOURCES)
 
 .PHONY: clean
 clean:
