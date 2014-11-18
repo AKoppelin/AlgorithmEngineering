@@ -2,7 +2,7 @@
 #include <cmath>
 #include <map>
 #include <vector>
-//#include "Matrix_ops.cpp"
+#include "Matrix.h"
 #include "Meter.cpp"
 //#include "gtest/gtest.h"
 
@@ -40,8 +40,8 @@ long double computeNthFibonacciNumber2(int n) {
 
 /// This function computes the n-th Fibonacci number in linear time
 /// in n and needs constant memory.
-long double computeNthFibonacciNumber3(int n) {
-	long double result, first, second;
+unsigned int computeNthFibonacciNumber3(int n) {
+	unsigned int result, first, second;
 
 	//assert(n >= 0);
 
@@ -58,24 +58,39 @@ long double computeNthFibonacciNumber3(int n) {
 	return result;
 }
 
-/// not yet implemented
-long double computeNthFibonacciNumber4(int n) {
-	long double matrix[2][2] = { { 0, 1 }, { 1, 1 } };
+/// This function computes the n-th Fibonacci number using a matrix.
+unsigned int computeNthFibonacciNumber4(unsigned int n) {
+	if (n < 2) return n;
+	
+	vector<vector<int> > fiboData(2, vector<int>(2));
+	vector<vector<int> > fiboVect(2, vector<int>(1));
 
-	return 1;
+	/// initialize matrix
+	fiboData[0][0] = 0;
+	fiboData[0][1] = fiboData[1][0] = fiboData[1][1] = 1;
+
+	/// initialize vector
+	fiboVect[0][0] = 0;
+	fiboVect[1][0] = 1;
+
+	Matrix m = Matrix(2, 2, fiboData);
+	Matrix v = Matrix(2, 1, fiboVect);
+
+	m = m.exponentiationBySquaring(n - 1);
+	return m.getElementAt(1, 1);
 }
 
 /// This function computes the n-th Fibonacci number using the closed form.
-long double computeNthFibonacciNumber5(int n) {
+unsigned int computeNthFibonacciNumber5(int n) {
 //	assert(n >= 0);
 
-	long double res = floorl((1.0 / sqrt(5.0)) * powl((1.0 + sqrt(5.0)) / 2.0, n) + 1.0 / 2.0);
+	unsigned int res = (unsigned int) floorl((1.0 / sqrt(5.0)) * powl((1.0 + sqrt(5.0)) / 2.0, n) + 1.0 / 2.0);
 	return res;
 }
 
 
 /// This function fills a created lookup table with the first 1476 Fibonacci numbers.
-std::map <int, long double> fiboLUT;
+std::map <int, unsigned int> fiboLUT;
 void initFiboLUT() {
 	for (int i = 0; i <= 1476; i++) { /// n = 1476 is the greatest number thats doesn't cause an overflow
 		fiboLUT[i] = computeNthFibonacciNumber3(i);
@@ -93,8 +108,8 @@ int main(int argc, char** argv) {
 	initFiboLUT();
 	//testing::InitGoogleTest(&argc, argv);
 	//RUN_ALL_TESTS();
-	Meter m = Meter();
-	m.measure(computeNthFibonacciNumber1, 25);
+	//Meter m = Meter();
+	//m.measure(computeNthFibonacciNumber1, 25);
 	//cin.get();
 	return 0;
 }

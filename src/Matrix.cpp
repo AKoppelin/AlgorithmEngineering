@@ -1,6 +1,5 @@
 #include "Matrix.h"
 
-
 Matrix::Matrix(unsigned int numrows, unsigned int numcols)
 {
 	rows = numrows;
@@ -20,17 +19,17 @@ Matrix::~Matrix()
 }
 
 // Getter methods
-unsigned int getRows() {
+unsigned int Matrix::getRows() {
 	return rows;
 }
-unsigned int getCols() { 
+unsigned int Matrix::getCols() { 
 	return cols; 
 }
-unsigned int getElementAt(unsigned int row, unsigned int col) { 
+unsigned int Matrix::getElementAt(unsigned int row, unsigned int col) { 
 	return m[row][col]; 
 }
 
-Matrix getIdentityMatrix(unsigned int numrows, unsigned int numcols) {
+Matrix Matrix::getIdentityMatrix(unsigned int numrows, unsigned int numcols) {
 	Matrix identM = Matrix(numrows, numcols);
 
 	unsigned int smalerDim = 0;
@@ -42,4 +41,30 @@ Matrix getIdentityMatrix(unsigned int numrows, unsigned int numcols) {
 	}
 
 	return identM;
+}
+
+Matrix Matrix::exponentiationBySquaring(unsigned int n) {
+	Matrix returnM = Matrix(cols, rows, m);
+	if (n == 0) return getIdentityMatrix(rows, cols);
+	if (n == 1) return returnM;
+	if (n % 2 == 0) {
+		returnM = returnM.multiply(returnM);
+		returnM = returnM.exponentiationBySquaring(n / 2);
+	}else{
+		returnM = returnM.multiply(exponentiationBySquaring(n - 1));
+	}
+	return returnM;
+}
+
+Matrix Matrix::multiply(Matrix rhs) {
+	Matrix returnM = Matrix(rows, rhs.cols);
+
+	for (unsigned int i = 0; i < rows; i++) {
+		for (unsigned int j = 0; j < rhs.cols; j++) {
+			for (unsigned int k = 0; k < cols; k++) {
+				returnM.m[i][j] += m[i][k] * rhs.m[k][j];
+			}
+		}
+	}
+	return returnM;
 }

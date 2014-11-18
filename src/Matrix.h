@@ -37,3 +37,7 @@ bool operator==(Matrix& lhs, Matrix& rhs) {
 	}
 	return true;
 }
+
+bool operator!=(Matrix& lhs, Matrix& rhs) {
+	return !(lhs == rhs);
+}
