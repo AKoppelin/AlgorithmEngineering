@@ -1,3 +1,6 @@
+#ifndef _MATRIX_H
+#define _MATRIX_H
+
 #include <vector>
 
 class Matrix {
@@ -24,20 +27,12 @@ public:
 
 	/// Methods for matrix operations
 	Matrix exponentiationBySquaring(unsigned int n);
+	Matrix exponentiationBySquaringIterative(unsigned int n);
 	Matrix multiply(Matrix rhs);
+
+	/// Relational operators
+	bool operator==(Matrix& rhs);
+	bool operator!=(Matrix& rhs);
 };
+#endif
 
-// Relational operators
-bool operator==(Matrix& lhs, Matrix& rhs) {
-	if (lhs.getRows() != rhs.getRows() || lhs.getCols() != rhs.getCols()) return false;
-	for (unsigned int i = 0; i < lhs.getRows(); i++) {
-		for (unsigned int j = 0; j < lhs.getCols(); j++) {
-			if (lhs.getElementAt(i, j) != rhs.getElementAt(i, j)) return false;
-		}
-	}
-	return true;
-}
-
-bool operator!=(Matrix& lhs, Matrix& rhs) {
-	return !(lhs == rhs);
-}
