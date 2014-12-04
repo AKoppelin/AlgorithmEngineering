@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cmath>
-#include <cstdint>
+//#include <cstdint>
 #include <map>
 #include <vector>
 #include "Matrix.h"
@@ -122,13 +122,15 @@ uint64_t computeNthFibonacciNumber7(unsigned int n) {
 
 
 int main(int argc, char** argv) {
-	initFiboLUT();
-	//testing::InitGoogleTest(&argc, argv);
-	//RUN_ALL_TESTS();
+//#ifdef TESTS
+//initFiboLUT();
+//testing::InitGoogleTest(&argc, argv);
+//RUN_ALL_TESTS();
+//#endif
 //#ifdef MEASUREMENTS
 	Meter meter = Meter();
-	cout << "Starting measurements ..." << endl;
-	for (int i = 0; i < 45; i++) {
+	cout << "Starting time measurements ..." << endl;
+	for (int i = 0; i < 35; i++) {
 		meter.measureTime(computeNthFibonacciNumber1, i, 10, "nthFibonacciNumber1");
 	}
 	for (int i = 0; i < 94; i++) {
@@ -149,8 +151,31 @@ int main(int argc, char** argv) {
 	for (int i = 0; i < 47; i++) {
 		meter.measureTime(computeNthFibonacciNumber7, i, 10, "nthFibonacciNumber7");
 	}
-	cout << "Finished measurements." << endl;
+	cout << "Finished time measurements." << endl;
 	
+	cout << "Starting measurements of cycles..." << endl;
+	for (int i = 0; i < 35; i++) {
+		meter.measureCycles(computeNthFibonacciNumber1, i, 10, "nthFibonacciNumber1");
+	}
+	for (int i = 0; i < 94; i++) {
+		meter.measureCycles(computeNthFibonacciNumber2, i, 10, "nthFibonacciNumber2");
+	}
+	for (int i = 0; i < 94; i++) {
+		meter.measureCycles(computeNthFibonacciNumber3, i, 10, "nthFibonacciNumber3");
+	}
+	for (int i = 0; i < 47; i++) {
+		meter.measureCycles(computeNthFibonacciNumber4, i, 10, "nthFibonacciNumber4");
+	}
+	for (int i = 0; i < 94; i++) {
+		meter.measureCycles(computeNthFibonacciNumber5, i, 10, "nthFibonacciNumber5");
+	}
+	for (int i = 0; i < 94; i++) {
+		meter.measureCycles(computeNthFibonacciNumber6, i, 10, "nthFibonacciNumber6");
+	}
+	for (int i = 0; i < 47; i++) {
+		meter.measureCycles(computeNthFibonacciNumber7, i, 10, "nthFibonacciNumber7");
+	}
+	cout << "Finished measurements of cycles." << endl;
 
 //#endif
 

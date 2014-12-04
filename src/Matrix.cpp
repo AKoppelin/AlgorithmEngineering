@@ -74,7 +74,8 @@ Matrix Matrix::exponentiationBySquaringIterative(unsigned int n) {
 		}else{
 			oddM = oddM.multiply(returnM);
 			returnM = returnM.multiply(returnM);
-			n = --n / 2;
+			n--;
+			n = n / 2;
 		}
 	}
 	returnM = returnM.multiply(oddM);
