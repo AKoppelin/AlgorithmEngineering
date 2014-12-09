@@ -1,7 +1,4 @@
 #include "Meter.h"
-/*	TODO:
-/		- swap out statistic computations to functions
-*/
 
 Meter::Meter() {}
 
@@ -12,7 +9,7 @@ Meter::~Meter() {}
 void Meter::measureTime(uint64_t(*pFunc)(unsigned int), unsigned int arg, int repetitions, string label) {
 	argument = arg;
 	this->repetitions = repetitions;
-	// run the tests using the committed function
+	/// run the tests using the committed function
 	for (int i = 0; i < repetitions; i++) {
 		watch.start();
 		pFunc(arg); /// call the committed function with the committed argument
@@ -22,17 +19,14 @@ void Meter::measureTime(uint64_t(*pFunc)(unsigned int), unsigned int arg, int re
 	}
 	/// statistics
 	min = max = data[0];
-	sum = 0;
 
-	for (int i = 1; i <= repetitions; i++) {
+	for (int i = 1; i < repetitions; i++) {
 		if (data[i] < min) min = data[i];
 		if (data[i] > max) max = data[i];
 		sum += data[i];
 	}
 	mean = sum / repetitions;
 
-	sd = 0;
-	dsum = 0;
 	for (int i = 0; i < repetitions; i++){
 		dev = mean - (double) data[i];
 		dsum += (dev * dev);
@@ -46,27 +40,25 @@ void Meter::measureTime(uint64_t(*pFunc)(unsigned int), unsigned int arg, int re
 void Meter::measureCycles(uint64_t(*pFunc)(unsigned int), unsigned int arg, int repetitions, string label) {
 	argument = arg;
 	this->repetitions = repetitions;
-	/// run the tests using the committed function
+	// run the tests using the committed function
 	for (int i = 0; i < repetitions; i++) {
 		cycle.start();
-		pFunc(arg); /// call the committed function with the committed argument
+		pFunc(arg); // call the committed function with the committed argument
 		cycle.stop();
 		data.push_back(cycle.getValue());
 		cycle.reset();
 	}
-	/// statistics
+	// statistics
 	min = max = data[0];
 	sum = 0;
 
-	for (int i = 0; i < repetitions; i++) {
+	for (int i = 1; i < repetitions; i++) {
 		if (data[i] < min) min = data[i];
 		if (data[i] > max) max = data[i];
 		sum += data[i];
 	}
 	mean = sum / repetitions;
 
-	sd = 0;
-	dsum = 0;
 	for (int i = 0; i < repetitions; i++){
 		dev = mean - (double)data[i];
 		dsum += (dev * dev);
@@ -79,7 +71,6 @@ void Meter::measureCycles(uint64_t(*pFunc)(unsigned int), unsigned int arg, int 
 
 /// This function writes the measured data to an output file
 void Meter::saveDataToFile(string filename, string unit) {
-
 	fstream fs;
 	if (!fileExists(filename)) {
 		writeHeadlineToFile(filename, unit);
@@ -87,19 +78,9 @@ void Meter::saveDataToFile(string filename, string unit) {
 	fs.open(filename, ios::app);
 	if (fs) {
 		if (argument < 10) fs << " ";
-		/// statistics
-		min = max = data[0];
-		sum = 0;
-
-		for (int i = 0; i < repetitions; i++) {
-			if (data[i] < min) min = data[i];
-			if (data[i] > max) max = data[i];
-			sum += data[i];
-		}
-		mean = sum / repetitions;
 		fs << argument << setw(22) << min << setw(23) << max << setw(23) << mean << setw(23) << sd << setw(15);
 		for (int i = 0; i < repetitions; i++) {
-			fs << data[i] << " ";
+			fs << data[i] << "\t";
 		}
 		fs << endl;
 	}

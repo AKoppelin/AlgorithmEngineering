@@ -2,10 +2,11 @@
 #define _MATRIX_H
 
 #include <vector>
+#include <stdint.h>
 
 class Matrix {
 private:
-	std::vector<std::vector<int> > m;
+	std::vector<std::vector<uint64_t> > m;
 	unsigned int rows;
 	unsigned int cols;
 
@@ -14,7 +15,7 @@ public:
 	///	-	for an empty matrix
 	Matrix(unsigned int numrows, unsigned int numcols);
 	///	-	for a matrix with data
-	Matrix(unsigned int numrows, unsigned int numcols, std::vector<std::vector<int> > data);
+	Matrix(unsigned int numrows, unsigned int numcols, std::vector<std::vector<uint64_t> > data);
 	
 	/// Destructor
 	~Matrix();
@@ -22,7 +23,7 @@ public:
 	/// Getter methods
 	unsigned int getRows();
 	unsigned int getCols();
-	unsigned int getElementAt(unsigned int row, unsigned int col);
+	uint64_t getElementAt(unsigned int row, unsigned int col);
 	Matrix getIdentityMatrix(unsigned int numrows, unsigned int numcols);
 
 	/// Methods for matrix operations

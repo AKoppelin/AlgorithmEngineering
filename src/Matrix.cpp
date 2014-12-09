@@ -5,10 +5,10 @@ Matrix::Matrix(unsigned int numrows, unsigned int numcols)
 	this->rows = numrows;
 	cols = numcols;
 	// fill matrix with zeros
-	m = std::vector<std::vector<int> >(rows, std::vector<int>(cols, 0));
+	m = std::vector<std::vector<uint64_t> >(rows, std::vector<uint64_t>(cols, 0));
 }
 
-Matrix::Matrix(unsigned int numrows, unsigned int numcols, std::vector<std::vector<int> > data) {
+Matrix::Matrix(unsigned int numrows, unsigned int numcols, std::vector<std::vector<uint64_t> > data) {
 	//Matrix(numrows, numcols);
 	rows = numrows;
 	cols = numcols;
@@ -27,7 +27,7 @@ unsigned int Matrix::getRows() {
 unsigned int Matrix::getCols() { 
 	return cols; 
 }
-unsigned int Matrix::getElementAt(unsigned int row, unsigned int col) { 
+uint64_t Matrix::getElementAt(unsigned int row, unsigned int col) { 
 	return m[row][col]; 
 }
 
