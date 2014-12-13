@@ -159,17 +159,17 @@ uint64_t computeNthFibonacciNumber5(unsigned int n) {
 #ifdef TEST_RUN
 
 /// 
-TEST(FibonacciTest, computeNthFibonacciNumber5) {
-	ASSERT_EQ(computeNthFibonacciNumber5(0), computeNthFibonacciNumber1(0));
-	ASSERT_EQ(computeNthFibonacciNumber5(1), computeNthFibonacciNumber1(1));
-	ASSERT_EQ(computeNthFibonacciNumber5(2), computeNthFibonacciNumber1(2));
-	ASSERT_EQ(computeNthFibonacciNumber5(3), computeNthFibonacciNumber1(3));
-	ASSERT_EQ(computeNthFibonacciNumber5(4), computeNthFibonacciNumber1(4));
-	ASSERT_EQ(computeNthFibonacciNumber5(5), computeNthFibonacciNumber1(5));
-	ASSERT_EQ(computeNthFibonacciNumber5(6), computeNthFibonacciNumber1(6));
-	ASSERT_EQ(computeNthFibonacciNumber5(30), computeNthFibonacciNumber1(30));
-	ASSERT_EQ(computeNthFibonacciNumber5(43), 433494437);
-}
+// TEST(FibonacciTest, computeNthFibonacciNumber5) {
+	// ASSERT_EQ(computeNthFibonacciNumber5(0), computeNthFibonacciNumber1(0));
+	// ASSERT_EQ(computeNthFibonacciNumber5(1), computeNthFibonacciNumber1(1));
+	// ASSERT_EQ(computeNthFibonacciNumber5(2), computeNthFibonacciNumber1(2));
+	// ASSERT_EQ(computeNthFibonacciNumber5(3), computeNthFibonacciNumber1(3));
+	// ASSERT_EQ(computeNthFibonacciNumber5(4), computeNthFibonacciNumber1(4));
+	// ASSERT_EQ(computeNthFibonacciNumber5(5), computeNthFibonacciNumber1(5));
+	// ASSERT_EQ(computeNthFibonacciNumber5(6), computeNthFibonacciNumber1(6));
+	// ASSERT_EQ(computeNthFibonacciNumber5(30), computeNthFibonacciNumber1(30));
+	// ASSERT_EQ(computeNthFibonacciNumber5(43), 433494437);
+// }
 #endif // TEST_RUN
 
 // This function fills a created lookup table with the first 1476 Fibonacci numbers.
@@ -186,17 +186,17 @@ uint64_t computeNthFibonacciNumber6(unsigned int n) {
 }
 
 #ifdef TEST_RUN
-TEST(FibonacciTest, computeNthFibonacciNumber6) {
-	ASSERT_EQ(computeNthFibonacciNumber6(0), computeNthFibonacciNumber1(0));
-	ASSERT_EQ(computeNthFibonacciNumber6(1), computeNthFibonacciNumber1(1));
-	ASSERT_EQ(computeNthFibonacciNumber6(2), computeNthFibonacciNumber1(2));
-	ASSERT_EQ(computeNthFibonacciNumber6(3), computeNthFibonacciNumber1(3));
-	ASSERT_EQ(computeNthFibonacciNumber6(4), computeNthFibonacciNumber1(4));
-	ASSERT_EQ(computeNthFibonacciNumber6(5), computeNthFibonacciNumber1(5));
-	ASSERT_EQ(computeNthFibonacciNumber6(6), computeNthFibonacciNumber1(6));
-	ASSERT_EQ(computeNthFibonacciNumber6(30), computeNthFibonacciNumber1(30));
-	ASSERT_EQ(computeNthFibonacciNumber6(43), 433494437);
-}
+// TEST(FibonacciTest, computeNthFibonacciNumber6) {
+	// ASSERT_EQ(computeNthFibonacciNumber6(0), computeNthFibonacciNumber1(0));
+	// ASSERT_EQ(computeNthFibonacciNumber6(1), computeNthFibonacciNumber1(1));
+	// ASSERT_EQ(computeNthFibonacciNumber6(2), computeNthFibonacciNumber1(2));
+	// ASSERT_EQ(computeNthFibonacciNumber6(3), computeNthFibonacciNumber1(3));
+	// ASSERT_EQ(computeNthFibonacciNumber6(4), computeNthFibonacciNumber1(4));
+	// ASSERT_EQ(computeNthFibonacciNumber6(5), computeNthFibonacciNumber1(5));
+	// ASSERT_EQ(computeNthFibonacciNumber6(6), computeNthFibonacciNumber1(6));
+	// ASSERT_EQ(computeNthFibonacciNumber6(30), computeNthFibonacciNumber1(30));
+	// ASSERT_EQ(computeNthFibonacciNumber6(43), 433494437);
+// }
 #endif // TEST_RUN
 
 uint64_t computeNthFibonacciNumber7(unsigned int n) {
@@ -204,11 +204,11 @@ uint64_t computeNthFibonacciNumber7(unsigned int n) {
 	vector<vector<uint64_t> > fiboData(2, vector<uint64_t>(2));
 	vector<vector<uint64_t> > fiboVect(2, vector<uint64_t>(1));
 
-	// initialize matrix
+	/// initialize matrix
 	fiboData[0][0] = 0;
 	fiboData[0][1] = fiboData[1][0] = fiboData[1][1] = 1;
 
-	// initialize vector
+	/// initialize vector
 	fiboVect[0][0] = 0;
 	fiboVect[1][0] = 1;
 
@@ -220,18 +220,18 @@ uint64_t computeNthFibonacciNumber7(unsigned int n) {
 }
 
 #ifdef TEST_RUN
-TEST(FibonacciTest, computeNthFibonacciNumber7) {
-	ASSERT_EQ(computeNthFibonacciNumber7(0), computeNthFibonacciNumber1(0));
-	ASSERT_EQ(computeNthFibonacciNumber7(1), computeNthFibonacciNumber1(1));
-	ASSERT_EQ(computeNthFibonacciNumber7(2), computeNthFibonacciNumber1(2));
-	ASSERT_EQ(computeNthFibonacciNumber7(3), computeNthFibonacciNumber1(3));
-	ASSERT_EQ(computeNthFibonacciNumber7(4), computeNthFibonacciNumber1(4));
-	ASSERT_EQ(computeNthFibonacciNumber7(5), computeNthFibonacciNumber1(5));
-	ASSERT_EQ(computeNthFibonacciNumber7(6), computeNthFibonacciNumber1(6));
-	ASSERT_EQ(computeNthFibonacciNumber7(30), computeNthFibonacciNumber1(30));
-	ASSERT_EQ(computeNthFibonacciNumber7(43), 433494437);
+// TEST(FibonacciTest, computeNthFibonacciNumber7) {
+	// ASSERT_EQ(computeNthFibonacciNumber7(0), computeNthFibonacciNumber1(0));
+	// ASSERT_EQ(computeNthFibonacciNumber7(1), computeNthFibonacciNumber1(1));
+	// ASSERT_EQ(computeNthFibonacciNumber7(2), computeNthFibonacciNumber1(2));
+	// ASSERT_EQ(computeNthFibonacciNumber7(3), computeNthFibonacciNumber1(3));
+	// ASSERT_EQ(computeNthFibonacciNumber7(4), computeNthFibonacciNumber1(4));
+	// ASSERT_EQ(computeNthFibonacciNumber7(5), computeNthFibonacciNumber1(5));
+	// ASSERT_EQ(computeNthFibonacciNumber7(6), computeNthFibonacciNumber1(6));
+	// ASSERT_EQ(computeNthFibonacciNumber7(30), computeNthFibonacciNumber1(30));
+	// ASSERT_EQ(computeNthFibonacciNumber7(43), 433494437);
 
-}
+// }
 #endif // TEST_RUN
 
 

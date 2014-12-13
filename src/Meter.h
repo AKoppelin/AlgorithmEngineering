@@ -7,8 +7,8 @@
 #include <fstream>
 #include <vector>
 #include <math.h>
-#include "Stopwatch.h"
 #include "Cycles.h"
+#include "Stopwatch.h"
 
 using namespace std;
 
