@@ -1,12 +1,15 @@
 include c.mk
 
 EXECUTABLE = fibonacci
+TEST_EXECUTABLE := $(EXECUTABLE)_tests
+MEASURE_EXECUTABLE := $(EXECUTABLE)_measurements
 rwildcard=$(foreach d, $(wildcard $1*), $(call rwildcard, $d/, $2) $(filter $(subst *, %, $2), $d))
 SOURCES = $(call rwildcard, src/, *.cpp)
 HEADERS = $(call rwildcard, src/, *.h)
 OBJECTS = $(patsubst %.cpp, %.o, $(SOURCES))
-
-TEST_EXECUTABLE := $(EXECUTABLE)_tests
+BACKUP_FILES_CPP = $(patsubst %.cpp, %.cpp~, $(SOURCES))
+BACKUP_FILES_H = $(patsubst %.h, %.h~, $(HEADERS))
+DAT_FILES = $(wildcard *.dat)
 
 # flags
 CXXFLAGS := $(CXX_STD_CPP11) $(CXX_ALL_WARNINGS_FLAG) src/
@@ -17,6 +20,7 @@ CXXFLAGS_DEBUG :=  $(CXX_DEBUG_FLAG)
 LDFLAGS := $(CXX_LINK_STDLIB) $(CXX_LINK_LIBMATH)
 #LDFLAGS_TEST := $(LDFLAGS) $(CXX_GTEST_LIB)
 LDFLAGS_TEST := $(CXX_GTEST_LIB)
+#LDFLAGS_MEASURE := $(CXX_LINK_STDLIB) $(CXX_LINK_LIBMATH) 
 
 BUILD ?= release
 ifeq ($(BUILD), release)
@@ -50,11 +54,22 @@ OBJECTS_UNITTEST = $(patsubst %.o, %_gTest.o, $(OBJECTS))
 $(TEST_EXECUTABLE): $(OBJECTS_UNITTEST)
 	$(LD) $(CXX_LINK_STDLIB) $(CXXFLAGS_DEBUG) $^ $(CXX_OUTPUTFILE_FLAG) $@ $(LDFLAGS) $(LDFLAGS_TEST)
 
+OBJECTS_MEASUREMENTS = $(patsubst %.o, %_measure.o, $(OBJECTS))
+%_measure.o: %.cpp
+	$(CXX) $(CXXFLAGS) $(CXX_ARCH_DEF_FLAG) $(CXX_MEASURE_FLAG) $(CXX_NOLINK_FLAG) $^ $(CXX_OUTPUTFILE_FLAG) $@
+
+$(MEASURE_EXECUTABLE): $(OBJECTS_MEASUREMENTS)
+	$(LD) $(CXX_LINK_STDLIB) $(LDFLAGS) $(CXX_MEASURE_FLAG) $^ $(CXX_OUTPUTFILE_FLAG) $@
+
 .PHONY: tests
 tests: $(TEST_EXECUTABLE)
 	./$(TEST_EXECUTABLE)
 
+.PHONY: measure
+measure: $(MEASURE_EXECUTABLE)
+	./$(MEASURE_EXECUTABLE)
+
 .PHONY: clean
 clean:
-	$(RM) $(EXECUTABLE) $(TEST_EXECUTABLE) $(OBJECTS) $(OBJECTS_UNITTEST)
+	$(RM) $(EXECUTABLE) $(TEST_EXECUTABLE) $(MEASURE_EXECUTABLE) $(OBJECTS) $(OBJECTS_UNITTEST) $(OBJECTS_MEASUREMENTS) $(BACKUP_FILES_CPP) $(BACKUP_FILES_H) $(DAT_FILES) makefile~ c.mk~
 

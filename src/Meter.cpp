@@ -6,36 +6,67 @@ Meter::~Meter() {}
 
 /// This function calls the pointed function (pFunc).
 //void Meter::measureTime(uint64_t(*pFunc)(unsigned int), unsigned int arg, int repetitions, string label) {
-void Meter::measureTime(uint64_t(*pFunc)(unsigned int), unsigned int arg, int repetitions, string label) {
-	argument = arg;
-	this->repetitions = repetitions;
-	/// run the tests using the committed function
-	for (int i = 0; i < repetitions; i++) {
-		watch.start();
-		pFunc(arg); /// call the committed function with the committed argument
-		watch.stop();
-		data.push_back(watch.getValue());
-		watch.reset();
-	}
-	/// statistics
-	min = max = data[0];
+//void Meter::measureTime(uint64_t(*pFunc)(unsigned int), unsigned int arg, int repetitions, string label) {
+//	argument = arg;
+//	this->repetitions = repetitions;
+//	/// run the tests using the committed function
+//	for (int i = 0; i < repetitions; i++) {
+//		watch.start();
+//		pFunc(arg); /// call the committed function with the committed argument
+//		watch.stop();
+//		data.push_back(watch.getValue());
+//		watch.reset();
+//	}
+//	/// statistics
+//	min = max = data[0];
+//
+//	for (int i = 1; i < repetitions; i++) {
+//		if (data[i] < min) min = data[i];
+//		if (data[i] > max) max = data[i];
+//		sum += data[i];
+//	}
+//	mean = sum / repetitions;
+//
+//	for (int i = 0; i < repetitions; i++){
+//		dev = mean - (double) data[i];
+//		dsum += (dev * dev);
+//	}
+//	sd = sqrt((double)dsum / (repetitions - 1));
+//
+//	string filename = "TimeMeasurements_" + label + ".dat";
+//	saveDataToFile(filename, "us");
+//}
 
-	for (int i = 1; i < repetitions; i++) {
-		if (data[i] < min) min = data[i];
-		if (data[i] > max) max = data[i];
-		sum += data[i];
-	}
-	mean = sum / repetitions;
-
-	for (int i = 0; i < repetitions; i++){
-		dev = mean - (double) data[i];
-		dsum += (dev * dev);
-	}
-	sd = sqrt((double)dsum / (repetitions - 1));
-
-	string filename = "TimeMeasurements_" + label + ".dat";
-	saveDataToFile(filename, "us");
-}
+//void measureTime(void (*pFunc)(std::vector<size_t> arg), std::vector<size_t> arg, int repetitions, string label) {
+//	argument = arg;
+//	this->repetitions = repetitions;
+//	/// run the tests using the committed function
+//	for (int i = 0; i < repetitions; i++) {
+//		watch.start();
+//		pFunc(arg); /// call the committed function with the committed argument
+//		watch.stop();
+//		data.push_back(watch.getValue());
+//		watch.reset();
+//	}
+//	/// statistics
+//	min = max = data[0];
+//
+//	for (int i = 1; i < repetitions; i++) {
+//		if (data[i] < min) min = data[i];
+//		if (data[i] > max) max = data[i];
+//		sum += data[i];
+//	}
+//	mean = sum / repetitions;
+//
+//	for (int i = 0; i < repetitions; i++){
+//		dev = mean - (double) data[i];
+//		dsum += (dev * dev);
+//	}
+//	sd = sqrt((double)dsum / (repetitions - 1));
+//
+//	string filename = "TimeMeasurements_" + label + ".dat";
+//	saveDataToFile(filename, "us");
+//}
 
 void Meter::measureCycles(uint64_t(*pFunc)(unsigned int), unsigned int arg, int repetitions, string label) {
 	argument = arg;

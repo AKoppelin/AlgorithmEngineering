@@ -15,6 +15,7 @@ ifeq ($(CXX), g++)
 	CXX_OPTIMIZE_FLAG               := -O3
 #	CXX_NOBOUNDSCHECK_FLAG          := -noboundscheck
 	CXX_UNITTEST_FLAG               := -DTEST_RUN
+	CXX_MEASURE_FLAG		:= -DMEASURE
 	CXX_RELEASE_FLAG                := -DRELEASE
 	CXX_DEBUG_FLAG                  := -DDEBUG -ggdb
 #	CXX_VERSION_FLAG                := -version=
@@ -24,7 +25,6 @@ ifeq ($(CXX), g++)
 #	CXX_LINKER_FLAG                 := -L
 #	CXX_DOCFILE_FLAG                := -Df
 #	CXX_FPIC_FLAG                   := -fPIC
-#	CXX_GTEST_LIB			:= -lpthread -lgtest
 	CXX_GTEST_LIB			:= -lgtest -lpthread
 	CXX_LINK_STDLIB			:= 
 	CXX_LINK_LIBMATH		:= -lm
@@ -55,7 +55,7 @@ ifeq ($(CXX), clang)
 #	CXX_LINKER_FLAG                 := -L
 #	CXX_DOCFILE_FLAG                := -Df
 #	CXX_FPIC_FLAG                   := -fPIC
-	CXX_GTEST_LIB			:= -lpthread -lgtest 
+	CXX_GTEST_LIB			:= -lgtest -lpthread
 	CXX_LINK_STDLIB			:= -lstdc++
 	CXX_LINK_LIBMATH		:= -lm
 	CXX_STD_CPP11			:= -std=c++11
