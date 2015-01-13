@@ -17,7 +17,7 @@ class Meter{
 private:
 	Stopwatch watch;
 	Cycles cycle;
-	int argument, repetitions;
+	unsigned int argument, repetitions;
 	vector<uint64_t> data;
 	uint64_t min, max, mean, sum;
 	double dev, sd, dsum;  /// deviation, standard deviation, sum of deviations
@@ -32,33 +32,34 @@ public:
 	~Meter();
 
 	/// Methods
-//	void measureTime(uint64_t(*pFunc)(unsigned int), unsigned int arg, int repetitions, string label);
-//	void measureTime(void (*pFunc)(std::vector<size_t> arg), std::vector<size_t> arg, int repetitions, string label);
-	void measureCycles(uint64_t(*pFunc)(unsigned int), unsigned int arg, int repetitions, string label);
 	void saveDataToFile(string filename, string unit);
 
 	template<typename T, typename PAR>
-	void measureTime(T (*pfunc)(PAR), PAR arg, int repetitions, string label) {
+	void measureTime(T (*pFunc)(PAR), PAR arg, unsigned int n, unsigned int repetitions, string label) {
         this->repetitions = repetitions;
-        /// run the tests using the committed function
-        for (int i = 0; i < repetitions; i++) {
+        this->argument = n;
+        // run the tests using the committed function
+        // (added three repetitions and discarded the first three because the written files usually showed
+        // much higher values for the first three repetitions)
+        for (unsigned int i = 0; i < repetitions + 3; i++) {
             watch.start();
-            pFunc(arg); /// call the committed function with the committed argument
+            pFunc(arg); // call the committed function passing the committed argument
             watch.stop();
-            data.push_back(watch.getValue());
+            if(i > 2) data.push_back(watch.getValue());
             watch.reset();
         }
-        /// statistics
+        // statistics
         min = max = data[0];
+        sum = 0;
 
-        for (int i = 1; i < repetitions; i++) {
+        for (unsigned int i = 1; i < repetitions; i++) {
             if (data[i] < min) min = data[i];
             if (data[i] > max) max = data[i];
             sum += data[i];
         }
         mean = sum / repetitions;
 
-        for (int i = 0; i < repetitions; i++){
+        for (unsigned int i = 0; i < repetitions; i++){
             dev = mean - (double) data[i];
             dsum += (dev * dev);
         }
@@ -66,6 +67,41 @@ public:
 
         string filename = "TimeMeasurements_" + label + ".dat";
         saveDataToFile(filename, "us");
+    }
+
+    template<typename T, typename PAR>
+    void measureCycles(T (*pFunc)(PAR), PAR arg, unsigned int n, unsigned int repetitions, string label) {
+    	this->repetitions = repetitions;
+    	this->argument = n;
+        // run the tests using the committed function
+        // (added three repetitions and discarded the first three because the written files usually showed
+        // much higher values for the first three repetitions)
+        for (unsigned int i = 0; i < repetitions + 3; i++) {
+            cycle.start();
+            pFunc(arg); // call the committed function with the committed argument
+            cycle.stop();
+            if(i > 2) data.push_back(cycle.getValue());
+            cycle.reset();
+        }
+        // statistics
+        min = max = data[0];
+        sum = 0;
+
+        for (unsigned int i = 1; i < repetitions; i++) {
+            if (data[i] < min) min = data[i];
+            if (data[i] > max) max = data[i];
+            sum += data[i];
+        }
+        mean = sum / repetitions;
+
+        for (unsigned int i = 0; i < repetitions; i++){
+            dev = mean - (double)data[i];
+            dsum += (dev * dev);
+        }
+        sd = sqrt((double)dsum / (repetitions - 1));
+
+        string filename = "CycleMeasurements_" + label + ".dat";
+        saveDataToFile(filename, "cycles");
     }
 };
 

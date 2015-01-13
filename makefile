@@ -34,6 +34,9 @@ endif
 #ifeq ($(ARCHITECTURE), X86)
 #	CXXFLAGS += $(CXX_ARCH_X86)
 #endif
+#ifeq ($(ARCHITECURE), X64)
+#    CXXFLAGS += $(CXX_ARCH_X64)
+#endif
 #ifeq ($(ARCHITECTURE), AMD64)
 #	CXXFLAGS += $(CXX_ARCH_AMD64)
 #endif

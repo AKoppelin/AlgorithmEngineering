@@ -239,10 +239,27 @@ TEST(FibonacciTest, computeNthFibonacciNumber7) {
 }
 #endif // TEST_RUN
 
-
 #ifdef TEST_RUN
 
 #endif // TEST_RUN
+
+#ifdef MEASURE
+//void insertionsortForTesting(std::vector<size_t>& vec)  {
+//    insertionsort(vec);
+//}
+//
+//void quicksortForTesting(std::vector<size_t>& vec)  {
+//    quicksort(vec);
+//}
+//
+//void mergesortForTesting(std::vector<size_t>& vec)  {
+//    mergesort(vec);
+//}
+
+//void heapsortForTesting(std::vector<size_t>& vec)  {
+//    heapsort(vec);
+//}
+#endif // MEASURE
 
 int main(int argc, char **argv) {
 	initFiboLUT();
@@ -252,12 +269,12 @@ int main(int argc, char **argv) {
 #elif MEASURE
 
 // Measuring of fibonacci algorithms
-//#include "MeasureTimeFibonacci.h"
-//#include "MeasureCyclesFibonacci.h"
+#include "MeasureTimeFibonacci.h"
+#include "MeasureCyclesFibonacci.h"
 
 //  Measuring of sorting algorithms
 #include "MeasureTimeSorting.h"
-//#include "MeasureCyclesSorting.h"
+#include "MeasureCyclesSorting.h"
     return 0;
 
 #else
