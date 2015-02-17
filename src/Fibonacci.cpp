@@ -4,11 +4,16 @@
 #include <map>
 #include <vector>
 #include "Matrix.h"
-#include "Sorting.h"
 #include "Helperfunctions.h"
-
+#include "Meter.h"
 #ifdef MEASURE
 #include "Meter.h"
+#endif
+
+#ifdef MEASURE
+#include "SortingNoRef.h"
+#else
+#include "Sorting.h"
 #endif
 
 #ifdef TEST_RUN
@@ -23,21 +28,6 @@ uint64_t computeNthFibonacciNumber1(unsigned int n) {
 	if (n < 2) return n;
 	return computeNthFibonacciNumber1(n - 1) + computeNthFibonacciNumber1(n - 2);
 }
-
-// Unittests for function computeNthFibonacciNumber1()
-#ifdef TEST_RUN
-// Test cases for function 'computeNthFibonacciNumber1'.
-TEST(FibonacciTest, computeNthFibonacciNumber1) {
-	ASSERT_EQ(computeNthFibonacciNumber1(0), 0);
-	ASSERT_EQ(computeNthFibonacciNumber1(1), 1);
-	ASSERT_EQ(computeNthFibonacciNumber1(2), 1);
-	ASSERT_EQ(computeNthFibonacciNumber1(3), 2);
-	ASSERT_EQ(computeNthFibonacciNumber1(4), 3);
-	ASSERT_EQ(computeNthFibonacciNumber1(5), 5);
-	ASSERT_EQ(computeNthFibonacciNumber1(6), 8);
-}
-#endif // TEST_RUN
-
 
 // This function computes the n-th Fibonacci number in linear time
 // in n and needs linear memory.
@@ -57,21 +47,6 @@ uint64_t computeNthFibonacciNumber2(unsigned int n) {
 	v.clear();
 	return result;
 }
-
-#ifdef TEST_RUN
-// Test cases for function 'computeNthFibonacciNumber2'.
-TEST(FibonacciTest, computeNthFibonacciNumber2) {
-	ASSERT_EQ(computeNthFibonacciNumber2(0), computeNthFibonacciNumber1(0));
-	ASSERT_EQ(computeNthFibonacciNumber2(1), computeNthFibonacciNumber1(1));
-	ASSERT_EQ(computeNthFibonacciNumber2(2), computeNthFibonacciNumber1(2));
-	ASSERT_EQ(computeNthFibonacciNumber2(3), computeNthFibonacciNumber1(3));
-	ASSERT_EQ(computeNthFibonacciNumber2(4), computeNthFibonacciNumber1(4));
-	ASSERT_EQ(computeNthFibonacciNumber2(5), computeNthFibonacciNumber1(5));
-	ASSERT_EQ(computeNthFibonacciNumber2(6), computeNthFibonacciNumber1(6));
-	ASSERT_EQ(computeNthFibonacciNumber2(30), computeNthFibonacciNumber1(30));
-	ASSERT_EQ(computeNthFibonacciNumber2(43), 433494437);
-}
-#endif // TEST_RUN
 
 
 // This function computes the n-th Fibonacci number in linear time
@@ -98,26 +73,7 @@ uint64_t computeNthFibonacciNumber3(unsigned int n) {
 
 }
 
-
-
-
-
-#ifdef TEST_RUN
-// Test cases for function 'computeNthFibonacciNumber3'.
-TEST(FibonacciTest, computeNthFibonacciNumber3) {
-	ASSERT_EQ(computeNthFibonacciNumber3(1), computeNthFibonacciNumber1(1));
-	ASSERT_EQ(computeNthFibonacciNumber3(2), computeNthFibonacciNumber1(2));
-	ASSERT_EQ(computeNthFibonacciNumber3(3), computeNthFibonacciNumber1(3));
-	ASSERT_EQ(computeNthFibonacciNumber3(4), computeNthFibonacciNumber1(4));
-	ASSERT_EQ(computeNthFibonacciNumber3(5), computeNthFibonacciNumber1(5));
-	ASSERT_EQ(computeNthFibonacciNumber3(6), computeNthFibonacciNumber1(6));
-	ASSERT_EQ(computeNthFibonacciNumber3(30), computeNthFibonacciNumber1(30));
-	ASSERT_EQ(computeNthFibonacciNumber3(43), 433494437);
-}
-#endif // TEST_RUN
-
 // This function computes the n-th Fibonacci number using a matrix.
-
 uint64_t computeNthFibonacciNumber4(unsigned int n) {
 
 	if (n < 2) return n;
@@ -140,42 +96,12 @@ uint64_t computeNthFibonacciNumber4(unsigned int n) {
 	return m.getElementAt(1, 1);
 }
 
-
-#ifdef TEST_RUN
-TEST(FibonacciTest, computeNthFibonacciNumber4) {
-	ASSERT_EQ(computeNthFibonacciNumber4(0), computeNthFibonacciNumber1(0));
-	ASSERT_EQ(computeNthFibonacciNumber4(1), computeNthFibonacciNumber1(1));
-	ASSERT_EQ(computeNthFibonacciNumber4(2), computeNthFibonacciNumber1(2));
-	ASSERT_EQ(computeNthFibonacciNumber4(3), computeNthFibonacciNumber1(3));
-	ASSERT_EQ(computeNthFibonacciNumber4(4), computeNthFibonacciNumber1(4));
-	ASSERT_EQ(computeNthFibonacciNumber4(5), computeNthFibonacciNumber1(5));
-	ASSERT_EQ(computeNthFibonacciNumber4(6), computeNthFibonacciNumber1(6));
-	ASSERT_EQ(computeNthFibonacciNumber4(30), computeNthFibonacciNumber1(30));
-	ASSERT_EQ(computeNthFibonacciNumber4(43), 433494437);
-}
-#endif // TEST_RUN
-
 // This function computes the n-th Fibonacci number using the closed form.
 uint64_t computeNthFibonacciNumber5(unsigned int n) {
 //	assert(n < 47);
 	unsigned int res = (unsigned int) floorl((1.0 / sqrt(5.0)) * powl((1.0 + sqrt(5.0)) / 2.0, n) + 1.0 / 2.0);
 	return res;
 }
-#ifdef TEST_RUN
-
-///
-TEST(FibonacciTest, computeNthFibonacciNumber5) {
-	ASSERT_EQ(computeNthFibonacciNumber5(0), computeNthFibonacciNumber1(0));
-	ASSERT_EQ(computeNthFibonacciNumber5(1), computeNthFibonacciNumber1(1));
-	ASSERT_EQ(computeNthFibonacciNumber5(2), computeNthFibonacciNumber1(2));
-	ASSERT_EQ(computeNthFibonacciNumber5(3), computeNthFibonacciNumber1(3));
-	ASSERT_EQ(computeNthFibonacciNumber5(4), computeNthFibonacciNumber1(4));
-	ASSERT_EQ(computeNthFibonacciNumber5(5), computeNthFibonacciNumber1(5));
-	ASSERT_EQ(computeNthFibonacciNumber5(6), computeNthFibonacciNumber1(6));
-	ASSERT_EQ(computeNthFibonacciNumber5(30), computeNthFibonacciNumber1(30));
-	ASSERT_EQ(computeNthFibonacciNumber5(43), 433494437);
-}
-#endif // TEST_RUN
 
 // This function fills a created lookup table with the first 1476 Fibonacci numbers.
 std::map <int, uint64_t> fiboLUT;
@@ -189,20 +115,6 @@ void initFiboLUT() {
 uint64_t computeNthFibonacciNumber6(unsigned int n) {
 	return fiboLUT[n];
 }
-
-#ifdef TEST_RUN
-TEST(FibonacciTest, computeNthFibonacciNumber6) {
-	ASSERT_EQ(computeNthFibonacciNumber6(0), computeNthFibonacciNumber1(0));
-	ASSERT_EQ(computeNthFibonacciNumber6(1), computeNthFibonacciNumber1(1));
-	ASSERT_EQ(computeNthFibonacciNumber6(2), computeNthFibonacciNumber1(2));
-	ASSERT_EQ(computeNthFibonacciNumber6(3), computeNthFibonacciNumber1(3));
-	ASSERT_EQ(computeNthFibonacciNumber6(4), computeNthFibonacciNumber1(4));
-	ASSERT_EQ(computeNthFibonacciNumber6(5), computeNthFibonacciNumber1(5));
-	ASSERT_EQ(computeNthFibonacciNumber6(6), computeNthFibonacciNumber1(6));
-	ASSERT_EQ(computeNthFibonacciNumber6(30), computeNthFibonacciNumber1(30));
-	ASSERT_EQ(computeNthFibonacciNumber6(43), 433494437);
-}
-#endif // TEST_RUN
 
 uint64_t computeNthFibonacciNumber7(unsigned int n) {
 	if (n < 2) return n;
@@ -223,43 +135,10 @@ uint64_t computeNthFibonacciNumber7(unsigned int n) {
 	m = m.exponentiationBySquaringIterative(n - 1);
 	return m.getElementAt(1, 1);
 }
-
 #ifdef TEST_RUN
-TEST(FibonacciTest, computeNthFibonacciNumber7) {
-	ASSERT_EQ(computeNthFibonacciNumber7(0), computeNthFibonacciNumber1(0));
-	ASSERT_EQ(computeNthFibonacciNumber7(1), computeNthFibonacciNumber1(1));
-	ASSERT_EQ(computeNthFibonacciNumber7(2), computeNthFibonacciNumber1(2));
-	ASSERT_EQ(computeNthFibonacciNumber7(3), computeNthFibonacciNumber1(3));
-	ASSERT_EQ(computeNthFibonacciNumber7(4), computeNthFibonacciNumber1(4));
-	ASSERT_EQ(computeNthFibonacciNumber7(5), computeNthFibonacciNumber1(5));
-	ASSERT_EQ(computeNthFibonacciNumber7(6), computeNthFibonacciNumber1(6));
-	ASSERT_EQ(computeNthFibonacciNumber7(30), computeNthFibonacciNumber1(30));
-	ASSERT_EQ(computeNthFibonacciNumber7(43), 433494437);
-
-}
+#include "Tests_Fibonacci.h"
+#include "Tests_Sorting.h"
 #endif // TEST_RUN
-
-#ifdef TEST_RUN
-
-#endif // TEST_RUN
-
-#ifdef MEASURE
-//void insertionsortForTesting(std::vector<size_t>& vec)  {
-//    insertionsort(vec);
-//}
-//
-//void quicksortForTesting(std::vector<size_t>& vec)  {
-//    quicksort(vec);
-//}
-//
-//void mergesortForTesting(std::vector<size_t>& vec)  {
-//    mergesort(vec);
-//}
-
-//void heapsortForTesting(std::vector<size_t>& vec)  {
-//    heapsort(vec);
-//}
-#endif // MEASURE
 
 int main(int argc, char **argv) {
 	initFiboLUT();
@@ -353,13 +232,20 @@ int main(int argc, char **argv) {
 //    std::vector<int> a;
 //    a.push_back(1);
 //    a.push_back(3);
+//    a.push_back(-123);
 //    a.push_back(4);
 //    a.push_back(12);
+//    a.push_back(42);
+//    a.push_back(42);
 //    a.push_back(13);
 //    a.push_back(21);
-//    a.push_back(42);
-//    a.push_back(123);
-//
+//    printMe(a);
+//    cout << isSortedAsc(a) << endl;
+//    insertionsort(a);
+//    printMe(a);
+//    cout << isSortedAsc(a) << endl;
+//    meterSortingTime.measureTime<void, std::vector<size_t>& >(93861, 1, "InsertionsortOrdered", insertionsort, a);
+////
 //    cout << endl << endl;
 ////    printMe(a);
 //    cout << endl;
@@ -374,6 +260,48 @@ int main(int argc, char **argv) {
 ////        cout << "a ist kein Heap";
 ////    }
 //    cout << endl << endl;
+//    std::vector<size_t> vInsertReversed = createReverseOrderedVector(93861);
+//    printMe(vInsertReversed);
+//    cout << isSortedAsc(vInsertReversed) << endl;
+//    printMe(vInsertReversed);
+
+//    Stopwatch s;
+//    s.start();
+//    insertionsort(vInsertReversed);
+////    isSortedAsc(vInsertReversed);
+//    s.stop();
+//    s.reset();
+//    cout << "Dauer: " << s.getValue() << endl << endl;
+//
+////    printMe(vInsertReversed);
+////    cout << isSortedAsc(vInsertReversed) << endl;
+////    printMe(vInsertReversed);
+//
+//    std::vector<size_t> vInsertReversed1 = createReverseOrderedVector(93861);
+////    Stopwatch s;
+//    s.start();
+//    mergesort(vInsertReversed1);
+//    s.stop();
+//    s.peekStart();
+//    s.peekStop();
+//    s.reset();
+//    cout << "Dauer: " << s.getValue() << endl << endl;
+////    isSortedAsc(vInsertReversed);
+//
+//    std::vector<size_t> vInsertReversed2 = createReverseOrderedVector(93861);
+////    Stopwatch s;
+//    s.start();
+//    quicksort(vInsertReversed1);
+//    s.stop();
+//    s.peekStart();
+//    s.peekStop();
+//    s.reset();
+//    cout << "Dauer: " << s.getValue() << endl << endl;
+//    Meter meterSortingTime = Meter();
+//    std::vector<size_t> vInsertOrdered = createOrderedVector(93861);
+//    meterSortingTime.measureTime<void, std::vector<size_t>& >(93861, 1, "InsertionsortOrdered", insertionsort, vInsertOrdered);
+//    vInsertOrdered.erase(vInsertOrdered.begin(), vInsertOrdered.begin() + vInsertOrdered.size());
+//	cout << vInsertOrdered << endl;
 	return 0;
 #endif
 }

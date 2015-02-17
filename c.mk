@@ -12,7 +12,8 @@ ifeq ($(CXX), g++)
 	CXX_OUTPUTFILE_FLAG             := -o
 #	CXX_SYMBOLICDEBUGINFO_FLAG      := -g
 #	CXX_INLINE_FLAG                 := -inline
-	CXX_OPTIMIZE_FLAG               := -O3
+#	CXX_OPTIMIZE_FLAG               := -O3
+	CXX_OPTIMIZE_FLAG               :=  -O0
 #	CXX_NOBOUNDSCHECK_FLAG          := -noboundscheck
 	CXX_UNITTEST_FLAG               := -DTEST_RUN
 	CXX_MEASURE_FLAG		:= -DMEASURE

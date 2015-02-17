@@ -120,70 +120,73 @@ template<typename T> void mergesort(std::vector<T> &data) {
 /////////////////////////////
 //        Heapsort
 /////////////////////////////
-//size_t parentIndex(size_t &i) {
-//    assert(i >= 0);
-//    if(i == 0) return 0;
-//    return (i - 1) / 2;
-//}
-//
-//size_t leftIndex(size_t &i) {
-//    assert(i >= 0);
-//    return i * 2 + 1;
-//}
-//
-//size_t rightIndex(size_t &i) {
-//    assert(i >= 0);
-//    return i * 2 + 2;
-//}
-//
-//template<typename T> bool isHeap(std::vector<T> &data) {
-//    for(size_t i = 0; i < data.size(); i++) {
-//        if(data[i] < data[parentIndex(i)]) return false;
-//    }
-//    return true;
-//};
-//
-//template<typename T> void siftUp(T &data) {
-//    assert(data.size() > 0); // siftUp on an empty vector is useless
-////    std::vector<T> oldVector = createSubvector(data, 0, (data.size() - 1));
-////    assert(isHeap(oldVector));
-//
-//    size_t newElementIndex = data.size() - 1;
-//    while(true) {
-//        if(newElementIndex == 0) break;
-//        size_t parentIdx = parentIndex(newElementIndex);
-//        cout << "Parent-Index: " << parentIdx << endl;
-//        cout << "Data[ParentIdx]: " << data[parentIdx] << ", " << "Data[newElementIndex]: " << data[newElementIndex] << endl;
-//        if(data[parentIdx] < data[newElementIndex]) break;
-//        swap(data[parentIdx], data[newElementIndex]);
-//        cout << "Data[ParentIdx]:" << data[parentIdx] << ", " << "Data[newElementIndex]: " << data[newElementIndex] << endl;
-//        newElementIndex = parentIdx;
-//    }
-//    assert(isHeap(data));
-//}
-//
-//template<typename T>
-//void siftDown(T &data) {
-//    assert(data.size() > 0);
-//
-//    size_t newElementIndex = 0;
-//
-//    while(true) {
-//        size_t leftIdx = leftIndex(newElementIndex);
-//
-//        if(leftIdx >= data.size()) break;
-//        size_t rightIdx = leftIdx + 1;
-//
-//        if(rightIdx < data.size() && data[rightIdx] < data[leftIdx]) {
-//            leftIdx = rightIdx;
-//        }
-//
-//        if(data[leftIdx] > data[newElementIndex]) break;
-//        swap(data[leftIdx], data[rightIdx]);
-//        newElementIndex = leftIdx;
-//    }
-//
-//    assert(isHeap(data));
-//}
-//};
+size_t parentIndex(size_t &i) {
+    assert(i >= 0);
+    if(i == 0) return 0;
+    return (i - 1) / 2;
+}
+
+size_t leftIndex(size_t &i) {
+    assert(i >= 0);
+    return i * 2 + 1;
+}
+
+size_t rightIndex(size_t &i) {
+    assert(i >= 0);
+    return i * 2 + 2;
+}
+
+template<typename T> bool isHeap(std::vector<T> &data) {
+    for(size_t i = 0; i < data.size(); i++) {
+        if(data[i] < data[parentIndex(i)]) return false;
+    }
+    return true;
+};
+
+template<typename T> void siftUp(T &data) {
+    assert(data.size() > 0); // siftUp on an empty vector is useless
+    size_t oldVectorSize = data.size() - 1;
+    cout << "Größe: " << oldVectorSize << endl;
+    std::vector<T> oldVector = createSubvector(data, 0, oldVectorSize);
+//    std::vector<T> oldVector = createSubvector(data, data.begin(), data.end());
+//    std::vector<T> oldVector(data[0], data[data.size() - 1]);
+//    assert(isHeap(oldVector));
+
+    size_t newElementIndex = data.size() - 1;
+    while(true) {
+        if(newElementIndex == 0) break;
+        size_t parentIdx = parentIndex(newElementIndex);
+        cout << "Parent-Index: " << parentIdx << endl;
+        cout << "Data[ParentIdx]: " << data[parentIdx] << ", " << "Data[newElementIndex]: " << data[newElementIndex] << endl;
+        if(data[parentIdx] < data[newElementIndex]) break;
+        swap(data[parentIdx], data[newElementIndex]);
+        cout << "Data[ParentIdx]:" << data[parentIdx] << ", " << "Data[newElementIndex]: " << data[newElementIndex] << endl;
+        newElementIndex = parentIdx;
+    }
+    assert(isHeap(data));
+}
+
+template<typename T>
+void siftDown(T &data) {
+    assert(data.size() > 0);
+
+    size_t newElementIndex = 0;
+
+    while(true) {
+        size_t leftIdx = leftIndex(newElementIndex);
+
+        if(leftIdx >= data.size()) break;
+        size_t rightIdx = leftIdx + 1;
+
+        if(rightIdx < data.size() && data[rightIdx] < data[leftIdx]) {
+            leftIdx = rightIdx;
+        }
+
+        if(data[leftIdx] > data[newElementIndex]) break;
+        swap(data[leftIdx], data[rightIdx]);
+        newElementIndex = leftIdx;
+    }
+
+    assert(isHeap(data));
+};
 #endif

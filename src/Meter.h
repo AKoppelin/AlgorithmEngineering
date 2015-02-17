@@ -1,6 +1,7 @@
 #ifndef _METER_H
 #define _METER_H
 
+#include <cassert>
 #include <iostream>
 #include <iomanip>
 #include <cstdint>
@@ -23,6 +24,7 @@ private:
 	double dev, sd, dsum;  /// deviation, standard deviation, sum of deviations
 	bool fileExists(string filename);
 	void writeHeadlineToFile(string filename, string unit);
+	void print();
 
 public:
 	/// Constructor
@@ -34,17 +36,25 @@ public:
 	/// Methods
 	void saveDataToFile(string filename, string unit);
 
+//	template<typename T, typename ...PAR>
+//	void measureTime(unsigned int n, unsigned int repetitions, string label, T (*pFunc)(PAR...), PAR... arg) {
 	template<typename T, typename PAR>
-	void measureTime(T (*pFunc)(PAR), PAR arg, unsigned int n, unsigned int repetitions, string label) {
+	void measureTime(unsigned int n, unsigned int repetitions, string label, T (*pFunc)(PAR), PAR arg) {
+        assert(repetitions > 0);
         this->repetitions = repetitions;
         this->argument = n;
+        PAR argcopy = arg;
         // run the tests using the committed function
         // (added three repetitions and discarded the first three because the written files usually showed
         // much higher values for the first three repetitions)
         for (unsigned int i = 0; i < repetitions + 3; i++) {
+//            PAR argcopy = arg;
+//            printMe(arg);
             watch.start();
+//            pFunc(arg); // call the committed function passing the committed argument
             pFunc(arg); // call the committed function passing the committed argument
             watch.stop();
+//            cout << "Dauer: " << watch.getValue() << endl;
             if(i > 2) data.push_back(watch.getValue());
             watch.reset();
         }
@@ -52,12 +62,14 @@ public:
         min = max = data[0];
         sum = 0;
 
-        for (unsigned int i = 1; i < repetitions; i++) {
+        for (unsigned int i = 0; i < repetitions; i++) {
             if (data[i] < min) min = data[i];
             if (data[i] > max) max = data[i];
             sum += data[i];
         }
         mean = sum / repetitions;
+
+        dsum = 0;
 
         for (unsigned int i = 0; i < repetitions; i++){
             dev = mean - (double) data[i];
@@ -69,8 +81,9 @@ public:
         saveDataToFile(filename, "us");
     }
 
-    template<typename T, typename PAR>
-    void measureCycles(T (*pFunc)(PAR), PAR arg, unsigned int n, unsigned int repetitions, string label) {
+    template<typename T, typename ...PAR>
+    void measureCycles(unsigned int n, unsigned int repetitions, string label, T (*pFunc)(PAR...), PAR... arg) {
+        assert(repetitions > 0);
     	this->repetitions = repetitions;
     	this->argument = n;
         // run the tests using the committed function
@@ -78,7 +91,7 @@ public:
         // much higher values for the first three repetitions)
         for (unsigned int i = 0; i < repetitions + 3; i++) {
             cycle.start();
-            pFunc(arg); // call the committed function with the committed argument
+            pFunc(arg...); // call the committed function with the committed argument
             cycle.stop();
             if(i > 2) data.push_back(cycle.getValue());
             cycle.reset();
@@ -87,7 +100,7 @@ public:
         min = max = data[0];
         sum = 0;
 
-        for (unsigned int i = 1; i < repetitions; i++) {
+        for (unsigned int i = 0; i < repetitions; i++) {
             if (data[i] < min) min = data[i];
             if (data[i] > max) max = data[i];
             sum += data[i];
