@@ -12,8 +12,7 @@ ifeq ($(CXX), g++)
 	CXX_OUTPUTFILE_FLAG             := -o
 #	CXX_SYMBOLICDEBUGINFO_FLAG      := -g
 #	CXX_INLINE_FLAG                 := -inline
-#	CXX_OPTIMIZE_FLAG               := -O3
-	CXX_OPTIMIZE_FLAG               :=  -O0
+	CXX_OPTIMIZE_FLAG               := -O3
 #	CXX_NOBOUNDSCHECK_FLAG          := -noboundscheck
 	CXX_UNITTEST_FLAG               := -DTEST_RUN
 	CXX_MEASURE_FLAG		:= -DMEASURE
@@ -27,7 +26,7 @@ ifeq ($(CXX), g++)
 #	CXX_DOCFILE_FLAG                := -Df
 #	CXX_FPIC_FLAG                   := -fPIC
 	CXX_GTEST_LIB			:= -lgtest -lpthread
-	CXX_LINK_STDLIB			:= 
+	CXX_LINK_STDLIB			:=
 	CXX_LINK_LIBMATH		:= -lm
 	CXX_STD_CPP11			:= -std=c++11
 	CXX_ARCH_AMD64			:= -D_AMD64_CPU

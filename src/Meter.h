@@ -36,25 +36,18 @@ public:
 	/// Methods
 	void saveDataToFile(string filename, string unit);
 
-//	template<typename T, typename ...PAR>
-//	void measureTime(unsigned int n, unsigned int repetitions, string label, T (*pFunc)(PAR...), PAR... arg) {
-	template<typename T, typename PAR>
-	void measureTime(unsigned int n, unsigned int repetitions, string label, T (*pFunc)(PAR), PAR arg) {
+	template<typename T, typename ...PAR>
+	void measureTime(unsigned int n, unsigned int repetitions, string label, T (*pFunc)(PAR...), PAR... arg) {
         assert(repetitions > 0);
         this->repetitions = repetitions;
         this->argument = n;
-        PAR argcopy = arg;
         // run the tests using the committed function
         // (added three repetitions and discarded the first three because the written files usually showed
         // much higher values for the first three repetitions)
         for (unsigned int i = 0; i < repetitions + 3; i++) {
-//            PAR argcopy = arg;
-//            printMe(arg);
             watch.start();
-//            pFunc(arg); // call the committed function passing the committed argument
-            pFunc(arg); // call the committed function passing the committed argument
+            pFunc(arg...); // call the committed function passing the committed arguments
             watch.stop();
-//            cout << "Dauer: " << watch.getValue() << endl;
             if(i > 2) data.push_back(watch.getValue());
             watch.reset();
         }
@@ -91,7 +84,7 @@ public:
         // much higher values for the first three repetitions)
         for (unsigned int i = 0; i < repetitions + 3; i++) {
             cycle.start();
-            pFunc(arg...); // call the committed function with the committed argument
+            pFunc(arg...); // call the committed function with the committed arguments
             cycle.stop();
             if(i > 2) data.push_back(cycle.getValue());
             cycle.reset();

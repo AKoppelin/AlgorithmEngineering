@@ -5,7 +5,6 @@
 #include "Helperfunctions.h"
 using namespace std;
 
-//class Sorting {
 // This function prints the content of a vector.
 template<typename T> void printMe(std::vector<T> &data) {
 	for (unsigned int i = 0; i < data.size(); i++) {
@@ -22,6 +21,14 @@ template<typename T> bool isSortedAsc(std::vector<T> &data) {
 	return true;
 };
 
+// This function determines if a vector is sorted descending.
+template<typename T> bool isSortedDesc(std::vector<T> &data) {
+	for (unsigned int i = 1; i < data.size(); i++) {
+		if (data[i - 1] < data[i]) return false;
+	}
+	return true;
+};
+
 // This function swaps to elements.
 template<typename T> void swapElements(T *a, T *b) {
 	T tmp = *a;
@@ -29,16 +36,10 @@ template<typename T> void swapElements(T *a, T *b) {
 	*b = tmp;
 }
 
-// This function sorts a vector using insertionsort algorithm.
-template<typename T> void insertionsort(std::vector<T> &v) {
-	for (unsigned int i = 1; i < v.size(); i++) {
-		int j = i;
-		while (j && v[j - 1] > v[j]) {
-			swapElements(&v[j - 1], &v[j]);
-			j--;
-		}
-	}
-}
+
+/////////////////////////////
+//        Quicksort
+/////////////////////////////
 
 // This function "parts" a vector in two parts returning the partition index.
 template<typename T> size_t partition(std::vector<T> &v, int left, int right) {
@@ -64,12 +65,10 @@ template<typename T>void quicksort_subroutine(std::vector<T> &v, int left, int r
 	}
 }
 
-// This function sets the left and right borders of the vector and calls the actual quicksort algorithm (quicksort_subroutine).
-template<typename T>void quicksort(std::vector<T> &v) {
-    size_t left = 0;
-    size_t right = v.size() - 1;
-    quicksort_subroutine(v, left, right);
-}
+
+/////////////////////////////
+//        Mergesort
+/////////////////////////////
 
 // This function sets together two vectors in a sorted manner.
 template<typename T> void merge(std::vector<T> &left, std::vector<T> &right, std::vector<T> &res) {
@@ -100,22 +99,7 @@ template<typename T> void merge(std::vector<T> &left, std::vector<T> &right, std
 	}
 };
 
-// This function sorts a vector using the mergesort algorithm.
-template<typename T> void mergesort(std::vector<T> &data) {
-	if (data.size() > 1) {
-		int middle = data.size() / 2;
-		//std::vector<T>::const_iterator first = data.begin();
-		typename std::vector<T>::const_iterator first = data.begin();
-		typename std::vector<T>::const_iterator last = data.begin() + middle;
-		std::vector<T> left(first, last);
-		first = data.begin() + middle;
-		last = data.begin() + data.size();
-		std::vector<T> right(first, last);
-		mergesort(left);
-		mergesort(right);
-		merge(left, right, data);
-	}
-};
+
 
 /////////////////////////////
 //        Heapsort
@@ -126,67 +110,79 @@ size_t parentIndex(size_t &i) {
     return (i - 1) / 2;
 }
 
-size_t leftIndex(size_t &i) {
+size_t leftChildIndex(size_t &i) {
     assert(i >= 0);
     return i * 2 + 1;
 }
 
-size_t rightIndex(size_t &i) {
+size_t rightChildIndex(size_t &i) {
     assert(i >= 0);
     return i * 2 + 2;
 }
 
-template<typename T> bool isHeap(std::vector<T> &data) {
-    for(size_t i = 0; i < data.size(); i++) {
-        if(data[i] < data[parentIndex(i)]) return false;
-    }
-    return true;
-};
-
-template<typename T> void siftUp(T &data) {
-    assert(data.size() > 0); // siftUp on an empty vector is useless
-    size_t oldVectorSize = data.size() - 1;
-    cout << "Größe: " << oldVectorSize << endl;
-    std::vector<T> oldVector = createSubvector(data, 0, oldVectorSize);
-//    std::vector<T> oldVector = createSubvector(data, data.begin(), data.end());
-//    std::vector<T> oldVector(data[0], data[data.size() - 1]);
-//    assert(isHeap(oldVector));
-
-    size_t newElementIndex = data.size() - 1;
-    while(true) {
-        if(newElementIndex == 0) break;
-        size_t parentIdx = parentIndex(newElementIndex);
-        cout << "Parent-Index: " << parentIdx << endl;
-        cout << "Data[ParentIdx]: " << data[parentIdx] << ", " << "Data[newElementIndex]: " << data[newElementIndex] << endl;
-        if(data[parentIdx] < data[newElementIndex]) break;
-        swap(data[parentIdx], data[newElementIndex]);
-        cout << "Data[ParentIdx]:" << data[parentIdx] << ", " << "Data[newElementIndex]: " << data[newElementIndex] << endl;
-        newElementIndex = parentIdx;
-    }
-    assert(isHeap(data));
+template<typename T>
+bool isLesser(T a, T b) {
+    return a < b;
 }
 
 template<typename T>
-void siftDown(T &data) {
-    assert(data.size() > 0);
+bool isGreater(T a, T b) {
+    return isLesser(b, a);
+}
 
-    size_t newElementIndex = 0;
+template<typename T>
+bool isBinaryHeap(std::vector<T> &v, size_t start, size_t finish, bool(*funct)(T, T)) {
+    for(size_t i = start; i < finish; i++) {
+        size_t leftChild = leftChildIndex(i);
+        size_t rightChild = leftChild + 1;
+        if(leftChild < finish && funct(v[leftChild], v[i])) return false;
+        if(rightChild >= finish) return true;
+        if(funct(v[rightChild], v[i])) return false;
+    }
+    return true;
+}
+
+template<typename T>
+void siftDown(std::vector<T> &v, size_t start, size_t finish, bool(*funct)(T, T)) {
+    assert(v.size() > 0);
+    size_t newElementIndex = start;
 
     while(true) {
-        size_t leftIdx = leftIndex(newElementIndex);
+    size_t leftChild = leftChildIndex(newElementIndex);
+    size_t rightChild = leftChild + 1;
+        if(leftChild >= finish) break;
+        if(rightChild < finish && funct(v[rightChild], v[leftChild])) leftChild = rightChild;
 
-        if(leftIdx >= data.size()) break;
-        size_t rightIdx = leftIdx + 1;
-
-        if(rightIdx < data.size() && data[rightIdx] < data[leftIdx]) {
-            leftIdx = rightIdx;
-        }
-
-        if(data[leftIdx] > data[newElementIndex]) break;
-        swap(data[leftIdx], data[rightIdx]);
-        newElementIndex = leftIdx;
+        if(funct(v[leftChild], v[newElementIndex])) swap(v[newElementIndex], v[leftChild]);
+        else break;
+        newElementIndex = leftChild;
     }
+}
 
-    assert(isHeap(data));
-};
+template<typename T>
+void heapify(std::vector<T> &v, size_t start, bool(*funct)(T, T)) {
+    assert(v.size() > 0);
+    size_t newElementIndex = start;
+    for(size_t i = start/2; ; i--) {
+        size_t leftChild = leftChildIndex(newElementIndex);
+        size_t rightChild = leftChild + 1;
+        assert(isBinaryHeap(v, leftChild, start, funct) && isBinaryHeap(v, rightChild, start, funct));
+        siftDown(v, i, start, funct);
+        if(i == 0) return;
+    }
+    assert(isBinaryHeap(v, 0, start, funct));
+}
+
+template<typename T>
+void heapsort_helper(std::vector<T> &v, bool(*funct)(T, T)) {
+    if(v.size() < 2) return;
+    size_t root = 0;
+    heapify(v, v.size(), funct);
+
+    for(size_t i = v.size() - 1; i > 0; i--) {
+        swap(v[root], v[i]);
+        siftDown(v, root, i, funct);
+    }
+}
+
 #endif
