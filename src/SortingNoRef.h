@@ -34,6 +34,30 @@ template<typename T>void quicksort(std::vector<T> v) {
     quicksort_subroutine(v, left, right);
 }
 
+// This function sets the left and right borders of the vector and calls the actual quicksort algorithm for random pivot elements.
+template<typename T>void quicksort1(std::vector<T> v) {
+    size_t left = 0;
+    size_t right = v.size() - 1;
+    quicksort_subroutine_random(v, left, right);
+}
+
+// This function sets the left and right borders of the vector and calls the actual quicksort algorithm .
+template<typename T>void quicksort2(std::vector<T> v) {
+    if(isSortedAsc(v)) return;
+
+    size_t left = 0;
+    size_t right = v.size() - 1;
+    quicksort_subroutine_random(v, left, right);
+}
+
+// This function the actual quicksort algorithm that uses fat partitioning for performance reasons.
+template<typename T>
+void quicksort3(std::vector<T> v) {
+    size_t left = 0;
+    size_t right = v.size();
+    quicksort_subroutine_fat(v, left, right);
+}
+
 // This function sorts a vector using the mergesort algorithm.
 template<typename T> void mergesort(std::vector<T> data) {
 	if (data.size() > 1) {
@@ -53,13 +77,13 @@ template<typename T> void mergesort(std::vector<T> data) {
 
 template<typename T>
 void heapsortAsc(std::vector<T> v) {
-    heapsort_helper(v, isGreater<size_t>);
+    heapsort_subroutine(v, isGreater<size_t>);
     assert(isSortedAsc(v));
 }
 
 template<typename T>
 void heapsortDesc(std::vector<T> v) {
-    heapsort_helper(v, isLesser<size_t>);
+    heapsort_subroutine(v, isLesser<size_t>);
     assert(isSortedDesc(v));
 }
 

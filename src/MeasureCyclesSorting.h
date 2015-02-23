@@ -5,131 +5,163 @@ Meter meterSortingCycles = Meter();
 cout << "Starting cycle measurements of sorting algorithms ..." << endl;
 
 // Measure insertionsort.
+
 cout << "Measuring function 'insertionsort' for sorted input." << endl;
 for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
-    std::vector<size_t> vInsertOrdered = createOrderedVector(i);
-    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "InsertionsortOrdered", insertionsort, vInsertOrdered);
-    vInsertOrdered.erase(vInsertOrdered.begin(), vInsertOrdered.begin() + vInsertOrdered.size());
+    std::vector<size_t> vOrdered = createOrderedVector(i);
+    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "InsertionsortOrdered", insertionsort, vOrdered);
+    vOrdered.erase(vOrdered.begin(), vOrdered.begin() + vOrdered.size());
 }
 cout << "Measuring function 'insertionsort' for reverse sorted input." << endl;
 for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
-    std::vector<size_t> vInsertReversed = createReverseOrderedVector(i);
-    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "InsertionsortReversed", insertionsort, vInsertReversed);
-    vInsertReversed.erase(vInsertReversed.begin(), vInsertReversed.begin() + vInsertReversed.size());
+    std::vector<size_t> vReversed = createReverseOrderedVector(i);
+    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "InsertionsortReversed", insertionsort, vReversed);
+    vReversed.erase(vReversed.begin(), vReversed.begin() + vReversed.size());
 }
 cout << "Measuring function 'insertionsort' for permuted input." << endl;
 for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
-    std::vector<size_t> vInsertPermuted = createPermutedVector(i);
-    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "InsertionsortPermuted", insertionsort, vInsertPermuted);
-    vInsertPermuted.erase(vInsertPermuted.begin(), vInsertPermuted.begin() + vInsertPermuted.size());
+    std::vector<size_t> vPermuted = createPermutedVector(i);
+    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "InsertionsortPermuted", insertionsort, vPermuted);
+    vPermuted.erase(vPermuted.begin(), vPermuted.begin() + vPermuted.size());
 }
 cout << "Measuring function 'insertionsort' for randomized input." << endl;
 for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
-    std::vector<size_t> vInsertRandomized = createRandomizedVector(i, 1);
-    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "InsertionsortRandomized", insertionsort, vInsertRandomized);
-    vInsertRandomized.erase(vInsertRandomized.begin(), vInsertRandomized.begin() + vInsertRandomized.size());
+    std::vector<size_t> vRandomized = createRandomizedVector(i, 1);
+    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "InsertionsortRandomized", insertionsort, vRandomized);
+    vRandomized.erase(vRandomized.begin(), vRandomized.begin() + vRandomized.size());
 }
 cout << "Measuring function 'insertionsort' for input with repeated elements." << endl;
 for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
-    std::vector<size_t> vInsertRepeated = createVectorWithRepeatedElements(i, 1);
-    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "InsertionsortRepeated", insertionsort, vInsertRepeated);
-    vInsertRepeated.erase(vInsertRepeated.begin(), vInsertRepeated.begin() + vInsertRepeated.size());
+    std::vector<size_t> vRepeated = createVectorWithRepeatedElements(i, 1);
+    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "InsertionsortRepeated", insertionsort, vRepeated);
+    vRepeated.erase(vRepeated.begin(), vRepeated.begin() + vRepeated.size());
 }
 
 // Measure quicksort.
 cout << "Measuring function 'quicksort' for sorted input." << endl;
 for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
-    std::vector<size_t> vQuickOrdered = createOrderedVector(i);
-    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "QuicksortOrdered", quicksort, vQuickOrdered);
-    vQuickOrdered.erase(vQuickOrdered.begin(), vQuickOrdered.begin() + vQuickOrdered.size());
+    std::vector<size_t> vOrdered = createOrderedVector(i);
+    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "QuicksortOrdered", quicksort, vOrdered);
+    vOrdered.erase(vOrdered.begin(), vOrdered.begin() + vOrdered.size());
 }
 cout << "Measuring function 'quicksort' for reverse sorted input." << endl;
 for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
-    std::vector<size_t> vQuickReversed = createReverseOrderedVector(i);
-    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "QuicksortReversed", quicksort, vQuickReversed);
-    vQuickReversed.erase(vQuickReversed.begin(), vQuickReversed.begin() + vQuickReversed.size());
+    std::vector<size_t> vReversed = createReverseOrderedVector(i);
+    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "QuicksortReversed", quicksort, vReversed);
+    vReversed.erase(vReversed.begin(), vReversed.begin() + vReversed.size());
 }
 cout << "Measuring function 'quicksort' for permuted input." << endl;
 for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
-    std::vector<size_t> vQuickPermuted = createPermutedVector(i);
-    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "QuicksortPermuted", quicksort, vQuickPermuted);
-    vQuickPermuted.erase(vQuickPermuted.begin(), vQuickPermuted.begin() + vQuickPermuted.size());
+    std::vector<size_t> vPermuted = createPermutedVector(i);
+    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "QuicksortPermuted", quicksort, vPermuted);
+    vPermuted.erase(vPermuted.begin(), vPermuted.begin() + vPermuted.size());
 }
 cout << "Measuring function 'quicksort' for randomized input." << endl;
 for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
-    std::vector<size_t> vQuickRandomized = createRandomizedVector(i, 1);
-    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "QuicksortRandomized", quicksort, vQuickRandomized);
-    vQuickRandomized.erase(vQuickRandomized.begin(), vQuickRandomized.begin() + vQuickRandomized.size());
+    std::vector<size_t> vRandomized = createRandomizedVector(i, 1);
+    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "QuicksortRandomized", quicksort, vRandomized);
+    vRandomized.erase(vRandomized.begin(), vRandomized.begin() + vRandomized.size());
 }
 cout << "Measuring function 'quicksort' for input with repeated elements." << endl;
 for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
-    std::vector<size_t> vQuickRepeated = createVectorWithRepeatedElements(i, 1);
-    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "QuicksortRepeated", quicksort, vQuickRepeated);
-    vQuickRepeated.erase(vQuickRepeated.begin(), vQuickRepeated.begin() + vQuickRepeated.size());
+    std::vector<size_t> vRepeated = createVectorWithRepeatedElements(i, 1);
+    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "QuicksortRepeated", quicksort, vRepeated);
+    vRepeated.erase(vRepeated.begin(), vRepeated.begin() + vRepeated.size());
 }
 
 // Measure mergersort.
 cout << "Measuring function 'mergesort' for sorted input." << endl;
 for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
-    std::vector<size_t> vMergeOrdered = createOrderedVector(i);
-    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "MergesortOrdered", mergesort, vMergeOrdered);
-    vMergeOrdered.erase(vMergeOrdered.begin(), vMergeOrdered.begin() + vMergeOrdered.size());
+    std::vector<size_t> vOrdered = createOrderedVector(i);
+    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "MergesortOrdered", mergesort, vOrdered);
+    vOrdered.erase(vOrdered.begin(), vOrdered.begin() + vOrdered.size());
 }
 cout << "Measuring function 'mergesort' for reverse sorted input." << endl;
 for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
-    std::vector<size_t> vMergeReversed = createReverseOrderedVector(i);
-    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "MergesortReversed", mergesort, vMergeReversed);
-    vMergeReversed.erase(vMergeReversed.begin(), vMergeReversed.begin() + vMergeReversed.size());
+    std::vector<size_t> vReversed = createReverseOrderedVector(i);
+    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "MergesortReversed", mergesort, vReversed);
+    vReversed.erase(vReversed.begin(), vReversed.begin() + vReversed.size());
 }
 cout << "Measuring function 'mergesort' for permuted input." << endl;
 for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
-    std::vector<size_t> vMergePermuted = createPermutedVector(i);
-    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "MergesortPermuted", mergesort, vMergePermuted);
-    vMergePermuted.erase(vMergePermuted.begin(), vMergePermuted.begin() + vMergePermuted.size());
+    std::vector<size_t> vPermuted = createPermutedVector(i);
+    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "MergesortPermuted", mergesort, vPermuted);
+    vPermuted.erase(vPermuted.begin(), vPermuted.begin() + vPermuted.size());
 }
 cout << "Measuring function 'mergesort' for randomized input." << endl;
 for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
-    std::vector<size_t> vMergeRandomized = createRandomizedVector(i, 1);
-    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "MergesortRandomized", mergesort, vMergeRandomized);
-    vMergeRandomized.erase(vMergeRandomized.begin(), vMergeRandomized.begin() + vMergeRandomized.size());
+    std::vector<size_t> vRandomized = createRandomizedVector(i, 1);
+    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "MergesortRandomized", mergesort, vRandomized);
+    vRandomized.erase(vRandomized.begin(), vRandomized.begin() + vRandomized.size());
 }
 cout << "Measuring function 'mergesort' for input with repeated elements." << endl;
 for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
-    std::vector<size_t> vMergeRepeated = createVectorWithRepeatedElements(i, 1);
-    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "MergesortRepeated", mergesort, vMergeRepeated);
-    vMergeRepeated.erase(vMergeRepeated.begin(), vMergeRepeated.begin() + vMergeRepeated.size());
+    std::vector<size_t> vRepeated = createVectorWithRepeatedElements(i, 1);
+    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "MergesortRepeated", mergesort, vRepeated);
+    vRepeated.erase(vRepeated.begin(), vRepeated.begin() + vRepeated.size());
 }
 
 // Measure heapsort (ascending sorting).
 cout << "Measuring function 'heapsort' for sorted input." << endl;
 for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
-    std::vector<size_t> vHeapOrdered = createOrderedVector(i);
-    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "HeapsortOrdered", heapsortAsc, vHeapOrdered);
-    vHeapOrdered.erase(vHeapOrdered.begin(), vHeapOrdered.begin() + vHeapOrdered.size());
+    std::vector<size_t> vOrdered = createOrderedVector(i);
+    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "HeapsortOrdered", heapsortAsc, vOrdered);
+    vOrdered.erase(vOrdered.begin(), vOrdered.begin() + vOrdered.size());
 }
 cout << "Measuring function 'heapsort' for reverse sorted input." << endl;
 for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
-    std::vector<size_t> vHeapReversed = createReverseOrderedVector(i);
-    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "HeapsortReversed", heapsortAsc, vHeapReversed);
-    vHeapReversed.erase(vHeapReversed.begin(), vHeapReversed.begin() + vHeapReversed.size());
+    std::vector<size_t> vReversed = createReverseOrderedVector(i);
+    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "HeapsortReversed", heapsortAsc, vReversed);
+    vReversed.erase(vReversed.begin(), vReversed.begin() + vReversed.size());
 }
 cout << "Measuring function 'heapsort' for permuted input." << endl;
 for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
-    std::vector<size_t> vHeapPermuted = createPermutedVector(i);
-    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "HeapsortPermuted", heapsortAsc, vHeapPermuted);
-    vHeapPermuted.erase(vHeapPermuted.begin(), vHeapPermuted.begin() + vHeapPermuted.size());
+    std::vector<size_t> vPermuted = createPermutedVector(i);
+    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "HeapsortPermuted", heapsortAsc, vPermuted);
+    vPermuted.erase(vPermuted.begin(), vPermuted.begin() + vPermuted.size());
 }
 cout << "Measuring function 'heapsort' for randomized input." << endl;
 for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
-    std::vector<size_t> vHeapRandomized = createRandomizedVector(i, 1);
-    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "HeapsortRandomized", heapsortAsc, vHeapRandomized);
-    vHeapRandomized.erase(vHeapRandomized.begin(), vHeapRandomized.begin() + vHeapRandomized.size());
+    std::vector<size_t> vRandomized = createRandomizedVector(i, 1);
+    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "HeapsortRandomized", heapsortAsc, vRandomized);
+    vRandomized.erase(vRandomized.begin(), vRandomized.begin() + vRandomized.size());
 }
 cout << "Measuring function 'heapsort' for input with repeated elements." << endl;
 for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
-    std::vector<size_t> vHeapRepeated = createVectorWithRepeatedElements(i, 1);
-    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "HeapsortRepeated", heapsortAsc, vHeapRepeated);
-    vHeapRepeated.erase(vHeapRepeated.begin(), vHeapRepeated.begin() + vHeapRepeated.size());
+    std::vector<size_t> vRepeated = createVectorWithRepeatedElements(i, 1);
+    meterSortingCycles.measureCycles<void, std::vector<size_t> >(i, 10, "HeapsortRepeated", heapsortAsc, vRepeated);
+    vRepeated.erase(vRepeated.begin(), vRepeated.begin() + vRepeated.size());
 }
 
+// Measure C++'s std::sort algorithm
+cout << "Measuring function 'std::sort' for sorted input." << endl;
+for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
+    std::vector<size_t> vOrdered = createOrderedVector(i);
+    meterSortingCycles.measureCycles<void, std::vector<size_t>::iterator, std::vector<size_t>::iterator >(i, 10, "StdSortOrdered", sort, vOrdered.begin(), vOrdered.end());
+    vOrdered.erase(vOrdered.begin(), vOrdered.begin() + vOrdered.size());
+}
+cout << "Measuring function 'std::sort' for reverse sorted input." << endl;
+for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
+    std::vector<size_t> vReversed = createReverseOrderedVector(i);
+    meterSortingCycles.measureCycles<void, std::vector<size_t>::iterator, std::vector<size_t>::iterator >(i, 10, "StdSortReversed", std::sort, vReversed.begin(), vReversed.end());
+    vReversed.erase(vReversed.begin(), vReversed.begin() + vReversed.size());
+}
+cout << "Measuring function 'std::sort' for permuted input." << endl;
+for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
+    std::vector<size_t> vPermuted = createPermutedVector(i);
+    meterSortingCycles.measureCycles<void, std::vector<size_t>::iterator, std::vector<size_t>::iterator >(i, 10, "StdSortPermuted", std::sort, vPermuted.begin(), vPermuted.end());
+    vPermuted.erase(vPermuted.begin(), vPermuted.begin() + vPermuted.size());
+}
+cout << "Measuring function 'std::sort' for randomized input." << endl;
+for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
+    std::vector<size_t> vRandomized = createRandomizedVector(i, 1);
+    meterSortingCycles.measureCycles<void, std::vector<size_t>::iterator, std::vector<size_t>::iterator >(i, 10, "StdSortRandomized", std::sort, vRandomized.begin(), vRandomized.end());
+    vRandomized.erase(vRandomized.begin(), vRandomized.begin() + vRandomized.size());
+}
+cout << "Measuring function 'std::sort' for input with repeated elements." << endl;
+for (unsigned int i = 0; i <= 10000; i += (i/10 + 1)) {
+    std::vector<size_t> vRepeated = createVectorWithRepeatedElements(i, 1);
+    meterSortingCycles.measureCycles<void, std::vector<size_t>::iterator, std::vector<size_t>::iterator >(i, 10, "StdSortRepeated", std::sort, vRepeated.begin(), vRepeated.end());
+    vRepeated.erase(vRepeated.begin(), vRepeated.begin() + vRepeated.size());
+}
 cout << "Finished measuring cycles of sorting algorithms." << endl << endl;

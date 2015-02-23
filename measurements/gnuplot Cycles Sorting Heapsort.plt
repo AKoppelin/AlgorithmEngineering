@@ -4,7 +4,7 @@ title_label(n) = (n==1) ? "Ordered" : (n==2) ? "Reversed" : (n==3) ? "Permuted" 
 
 # number of implementations
 n = 5
-set title "Insertionsort with differend input types"
+set title "Heapsort with differend input types"
 set key outside #Legende außerhalb
 set style fill transparent solid 0.3
 set xlabel "n"

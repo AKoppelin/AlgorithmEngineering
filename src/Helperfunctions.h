@@ -35,7 +35,8 @@ std::vector<size_t> createVectorWithRepeatedElements(size_t size, int init) {
 	srand(init);
 	std::vector<size_t> res;
 	for(size_t i = 0; i < size; i++) {
-		res.push_back(rand() & size/10);
+//		res.push_back(rand() & size/10);
+		res.push_back(rand() & size/2);
 	}
 	return res;
 }
@@ -49,11 +50,4 @@ std::vector<size_t> createRandomizedVector(size_t size, int init) {
 	return res;
 }
 
-template<typename T> std::vector<T> createSubvector(const std::vector<T> &data, size_t start, size_t stop) {
-    typename std::vector<T>::const_iterator first = data.begin() + start;
-    typename std::vector<T>::const_iterator last = data.begin() + stop;
-
-    std::vector<T> returnVector(first, last);
-    return returnVector;
-}
 #endif

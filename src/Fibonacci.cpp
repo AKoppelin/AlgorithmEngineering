@@ -155,10 +155,12 @@ int main(int argc, char **argv) {
 //  Measuring of sorting algorithms
 #include "MeasureTimeSorting.h"
 #include "MeasureCyclesSorting.h"
-    return 0;
 
+//  Measuring of improved sorting algorithms
+#include "MeasureTimeSortingImprovements.h"
+#include "MeasureCyclesSortingImprovements.h"
+    return 0;
 #else
 	return 0;
 #endif
 }
-

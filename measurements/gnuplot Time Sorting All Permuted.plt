@@ -3,7 +3,7 @@ title_label(n) = (n==1) ? "Insertionsort" : (n==2) ? "Quicksort" : (n==3) ? "Mer
 
 # number of implementations
 n = 4
-set title "Insertionsort with different input types"
+set title "Different sorting algorithms for permuted input"
 set key outside #Legende auﬂerhalb
 set style fill transparent solid 0.3
 set xlabel "n"

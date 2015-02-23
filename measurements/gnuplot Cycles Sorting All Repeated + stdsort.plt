@@ -1,9 +1,9 @@
-filename(n) = sprintf("CycleMeasurements_%sReversed.dat", title_label(n))
-title_label(n) = (n==1) ? "Insertionsort" : (n==2) ? "Quicksort" : (n==3) ? "Mergesort" : (n==4) ? "Heapsort" :  "NOT_IMPLEMENTED"
+filename(n) = sprintf("CycleMeasurements_%sRepeated.dat", title_label(n))
+title_label(n) = (n==1) ? "Insertionsort" : (n==2) ? "Quicksort" : (n==3) ? "Mergesort" : (n==4) ? "Heapsort" : (n==5) ? "StdSort" : "NOT_IMPLEMENTED"
 
 # number of implementations
-n = 4
-set title "Different sorting algorithm for reverse ordered input."
+n = 5
+set title "Different sorting algorithm for input with repeated elements."
 set key outside #Legende auﬂerhalb
 set style fill transparent solid 0.3
 set xlabel "n"
